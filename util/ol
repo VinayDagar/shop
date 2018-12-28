@@ -1,0 +1,25 @@
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+
+let _db;
+
+const mongoConnect = (callback)=>{ 
+  MongoClient.connect('mongodb://localhost/vinayDagar',(err,client)=>{
+    if(err){
+      return err
+    }
+    console.log('connected')
+    _db = client.db()
+    return callback() 
+  });
+};
+
+const getDB = ()=>{
+  if(_db){
+    return _db
+  }
+  throw 'No Data Base found '
+}
+
+exports.mongoConnect = mongoConnect; 
+exports.getDb = getDB;
